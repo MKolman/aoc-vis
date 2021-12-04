@@ -11,7 +11,7 @@ import Vue from 'vue'
 export default Vue.extend({})
 </script>
 
-<style lang="css">
+<style lang="scss">
   body, textarea {
     background: #0f0f23;
     color: #ccc;
