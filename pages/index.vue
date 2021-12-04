@@ -30,6 +30,7 @@ export default Vue.extend({})
     outline: 0;
     text-decoration: none;
     color: #090;
+    overflow-wrap: break-word;
 
     &:hover, &:focus {
       color: #9f9;
