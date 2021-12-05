@@ -1,14 +1,41 @@
 <template>
   <div id="wrapper">
     <h1>--- Leaderboard Visualizer ---</h1>
-    <DataParser/>
+    <DataParser @load="stars = $event"/>
+    <StarGraphs :data="stars"/>
+    <br>
+    <TimeGraphs :data="stars"/>
+    <br>
+    <h1>--- TODO ---</h1>
+    <ul>
+      <li> Use dark mode for graphs.</li>
+      <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
+      <li> Add a new graph: total stars won vs. time (per day + average).</li>
+      <li> Use local storage to persist JSON data.</li>
+      <li> Updated the sample link to show the link to the pasted leaderboard.</li>
+    </ul>
+    <footer>
+      Made by <a href="https://www.kolman.si">Maks Kolman</a>.
+      Hosted on <a href="https://github.com/mkolman/aoc-vis">GitHub</a>.
+    </footer>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+  import Vue from 'vue'
 
-export default Vue.extend({})
+  export default Vue.extend({
+    data() {
+      return {
+        stars: [],
+      }
+    },
+    watch: {
+      stars() {
+        console.log(this.stars)
+      },
+    },
+  })
 </script>
 
 <style lang="scss">
