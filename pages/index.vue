@@ -13,6 +13,8 @@
       <li> Add a new graph: total stars won vs. time (per day + average).</li>
       <li> Use local storage to persist JSON data.</li>
       <li> Updated the sample link to show the link to the pasted leaderboard.</li>
+      <li> Change icon.</li>
+      <li> Deploy to GitHub Pages.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
