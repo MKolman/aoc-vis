@@ -32,11 +32,6 @@
         stars: [],
       }
     },
-    watch: {
-      stars() {
-        console.log(this.stars)
-      },
-    },
   })
 </script>
 

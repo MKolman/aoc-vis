@@ -60,24 +60,23 @@
     },
     computed: {
       totalStars() {
-        const result = this.barTemplate
-        result.xAxis.categories = this.data.map(v => v.name)
-        result.series[0].data = this.data.map(v => v.stars)
+        const result = (this as any).barTemplate
+        result.xAxis.categories = (this.data as Stars[]).map(v => v.name)
+        result.series[0].data = (this.data as Stars[]).map(v => v.stars)
         return result
       },
       starsPerDay() {
-        const result = this.columnTemplate
-        const days = this.data[0]?.part1?.length || 0
+        const result = (this as any).columnTemplate
+        const days = (this.data as Stars[])[0]?.part1?.length || 0
         result.xAxis.categories = Array.from({length: days}, (_, i) => i + 1)
         result.series[0].data = Array(days).fill(0)
         result.series[1].data = Array(days).fill(0)
-        for (const {part1, part2} of this.data) {
+        for (const {part1, part2} of (this.data as Stars[])) {
           for (let i = 0; i < days; i++) {
             result.series[1].data[i] += part1[i]?1:0
             result.series[0].data[i] += part2[i]?1:0
           }
         }
-        console.log(result)
         return result
       },
     },

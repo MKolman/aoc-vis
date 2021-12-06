@@ -59,14 +59,14 @@
     },
     computed: {
       partOne() {
-        const result = this.setUpChart(
+        const result = (this as any).setUpChart(
             (this.data as Stars[]).map(s => {return {name: s.name, data: s.part1}})
         )
         result.title.text = 'Time to solve part 1 from problem open'
         return result
       },
       partTwo() {
-        const result = this.setUpChart(
+        const result = (this as any).setUpChart(
             (this.data as Stars[]).map(s => {return {name: s.name, data: s.part2}})
         )
         result.title.text = 'Time to solve part 2 after solving part 1'
