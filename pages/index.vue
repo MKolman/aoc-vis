@@ -6,10 +6,11 @@
     <br>
     <TimeGraphs :data="stars"/>
     <br>
+    <ProgressGraphs :data="stars"/>
+    <br>
     <h1>--- TODO ---</h1>
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
-      <li> Add a new graph: total stars won vs. time (per day + average).</li>
       <li> Use local storage to persist JSON data.</li>
     </ul>
     <footer>

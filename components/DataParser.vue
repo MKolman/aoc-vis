@@ -26,6 +26,8 @@
       </a>
       <br>
       <textarea v-model="rawData" placeholder="Paste JSON text here."></textarea>
+      <br>
+      <br>
     </div>
   </div>
 </template>
