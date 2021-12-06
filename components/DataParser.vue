@@ -3,7 +3,7 @@
     <h2 class="data-status" @click="wantClosed = !wantClosed">
       <span v-if="isDataValid">
         {{data.members[data.owner_id].name}}'s leaderboard for {{data.event}}
-        ({{members.length}} members)
+        ({{numMembers}} members)
       </span>
       <span v-else-if="rawData.length > 0">
         Invalid leaderboard data.
@@ -18,7 +18,10 @@
       Paste your leaderboard json below. You can get it by clicking <a>[API]</a> then <a>[JSON]</a>
       links on <a href="https://adventofcode.com/2021/leaderboard/private">your leaderboard page</a>
       on Advent of Code. The final link will look similar to:
-      <a href="https://adventofcode.com/2021/leaderboard/private/view/271869.json">
+      <a v-if="isDataValid" :href="`https://adventofcode.com/${data.event}/leaderboard/private/view/${data.owner_id}.json`">
+        https://adventofcode.com<wbr>/{{data.event}}<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/{{data.owner_id}}.json
+      </a>
+      <a v-else href="https://adventofcode.com/2021/leaderboard/private/view/271869.json">
         https://adventofcode.com<wbr>/2021<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/271869.json
       </a>
       <br>
@@ -38,7 +41,7 @@
       }
     },
     computed: {
-      data(): {members: object, event: string, owner_id: string} | null {
+      data(): Leaderboard | null {
         try {
           return JSON.parse(this.rawData)
         } catch(e) {
@@ -74,15 +77,11 @@
         }
         return stars
       },
-      members(): {id: string, name: string}[] {
-        const mem = []
-        for (const [id, m] of Object.entries(this.data?.members || {})) {
-          mem.push({id, name: m.name})
-        }
-        return mem
+      numMembers(): number {
+        return Object.keys(this.data?.members || {}).length
       },
       isDataValid(): boolean {
-        return !!this.data
+        return !!this.data && !!this.data.members[this.data.owner_id]
       },
       showSection(): boolean {
         return !this.wantClosed || !this.isDataValid
@@ -92,7 +91,7 @@
       getDayStart(day: number): number {
         return Date.UTC(+(this.data?.event || 0), 11, day, 5, 0, 0, 0)/1000
       },
-      parseDay(day: number, data?: {1: {get_star_ts: number}, 2: {get_star_ts: number}}): [number|null, number|null] {
+      parseDay(day: number, data?: DayStars): [number|null, number|null] {
         if (!data) return [null, null]
         const dayStart = this.getDayStart(day)
         const p1 = data['1']?.get_star_ts
