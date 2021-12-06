@@ -14,7 +14,6 @@ export default {
     return `${val}s`
   },
   get(vals: number[], transform: any|null): number[] {
-    console.log('vals', vals)
     const min = Math.min(...vals)
     const max = Math.max(...vals)
     let first = 0

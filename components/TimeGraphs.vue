@@ -80,7 +80,7 @@
         const result = clone(this.chartTemplate) as any
         result.series = series
 
-        const allData = ([] as number[]).concat(...series.map(v => v.data))
+        const allData = ([] as number[]).concat(...series.map(v => v.data)).filter(Boolean)
         result.yAxis.tickPositions = timeTicks.get(allData, Math.log10)
         result.yAxis.labels.formatter = function(){return timeTicks.format(this.value)}
         return result
