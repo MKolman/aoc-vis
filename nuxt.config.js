@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Advent of code leaderboard visualizer',
+    title: 'AoC Leaderboard Visualizer',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -48,8 +48,15 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en'
-    }
+      lang: 'en',
+      name: 'AoC Leaderboard Visualiser',
+      short_name: 'AoC Vis',
+      background_color: '#0f0f23',
+    },
+    meta: {
+      title: 'AoC Visualiser',
+      theme_color: '#009900',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
