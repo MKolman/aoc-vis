@@ -1,8 +1,8 @@
 <template>
   <div>
-    <highchart :options="partOne" :update="['options.series']" />
+    <highchart :options="partOne" />
     <br>
-    <highchart :options="partTwo" :update="['options.series']" />
+    <highchart :options="partTwo" />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <highchart :options="totalStars" :update="['options.series']" />
+    <highchart :options="totalStars" />
     <br>
-    <highchart :options="starsPerDay" :update="['options.series']" />
+    <highchart :options="starsPerDay" />
   </div>
 </template>
 
