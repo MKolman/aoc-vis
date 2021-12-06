@@ -1,3 +1,4 @@
+import highchartTheme from './highcharts.theme.js';
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -44,6 +45,10 @@ export default {
     '@nuxtjs/pwa',
     'nuxt-highcharts',
   ],
+
+  highcharts: {
+      setOptions: highchartTheme,
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
