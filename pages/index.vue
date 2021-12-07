@@ -12,6 +12,7 @@
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
       <li> Use local storage to persist JSON data.</li>
+      <li> Enable sharing data (can an entire lederboard json fit into url?).</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
