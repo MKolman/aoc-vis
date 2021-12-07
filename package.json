@@ -20,6 +20,7 @@
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.19.3",
+    "idb": "^7.0.0",
     "nuxt": "^2.15.7",
     "nuxt-highcharts": "^2.0.2"
   },

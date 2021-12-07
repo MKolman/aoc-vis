@@ -11,7 +11,6 @@
     <h1>--- TODO ---</h1>
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
-      <li> Use local storage to persist JSON data.</li>
       <li> Enable sharing data (can an entire lederboard json fit into url?).</li>
     </ul>
     <footer>
@@ -48,11 +47,12 @@
     height: 10em;
   }
 
-  a {
+  a, .a {
     outline: 0;
     text-decoration: none;
     color: #090;
     overflow-wrap: break-word;
+    cursor: pointer;
 
     &:hover, &:focus {
       color: #9f9;
