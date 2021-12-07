@@ -163,7 +163,7 @@
     },
     created() {
       this.emit()
-      this.reloadLeaderboard(true)
+      if (process.client) this.reloadLeaderboard(true)
     },
   })
 </script>
