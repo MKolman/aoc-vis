@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="data-status" @click="wantClosed = !wantClosed">
+    <h2 @click="wantClosed = !wantClosed" class="data-status">
       <span v-if="isDataValid">
-        {{data.members[data.owner_id].name}}'s leaderboard for {{data.event}}
+        {{owner}}'s leaderboard for {{data.event}}
         ({{numMembers}} members)
       </span>
       <span v-else-if="rawData.length > 0">
@@ -11,19 +11,33 @@
       <span v-else>
         No leaderboard data. Paste it below.
       </span>
-      <a v-if="showSection">˅</a>
+      <a v-if="showSection">V</a>
       <a v-else>&gt;</a>
     </h2>
     <div v-if="showSection">
-      Paste your leaderboard json below. You can get it by clicking <a>[API]</a> then <a>[JSON]</a>
-      links on <a href="https://adventofcode.com/2021/leaderboard/private">your leaderboard page</a>
-      on Advent of Code. The final link will look similar to:
-      <a v-if="isDataValid" :href="`https://adventofcode.com/${data.event}/leaderboard/private/view/${data.owner_id}.json`">
-        https://adventofcode.com<wbr>/{{data.event}}<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/{{data.owner_id}}.json
-      </a>
-      <a v-else href="https://adventofcode.com/2021/leaderboard/private/view/271869.json">
-        https://adventofcode.com<wbr>/2021<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/271869.json
-      </a>
+      <div v-if="leaderboards.length" class="saved">
+        Paste a new leaderboard JSON to the textbox below or load one of your saved leaderboards:
+        <div v-for="lb in leaderboards" :key="`${lb.ownerId}/${lb.event}`">
+          <span class="a muted" @click="removeLeaderboard(lb.ownerId, lb.event)">[X]</span>
+          {{lb.owner}} ({{lb.event}}):
+          <span class="links">
+            <span @click="loadLeaderboard(lb.ownerId, lb.event)" class="a">
+              [Load]
+            </span>
+            <a :href="makeAocLink(lb.ownerId, lb.event)">[AoC<ExternalIcon />]</a>
+            <a :href="makeJsonLink(lb.ownerId, lb.event)">[JSON<ExternalIcon />]</a>
+          </span>
+        </div>
+      </div>
+      <div v-else>
+        Paste your leaderboard json below. You can get it by clicking <span class="a">[API]</span>
+        then <span class="a">[JSON]</span>
+        links on <a href="https://adventofcode.com/2021/leaderboard/private">your leaderboard page</a>
+        on Advent of Code. The final link will look similar to:
+        <a :href="makeJsonLink(271869, '2021')">
+          <span v-for="(part, index) in makeJsonLink(271869, '2021').split('/')" :key="index"><span v-if="index > 0"><wbr>/</span>{{part}}</span>
+        </a>
+      </div>
       <br>
       <textarea v-model="rawData" placeholder="Paste JSON text here."></textarea>
       <br>
@@ -34,12 +48,15 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  // @ts-ignore
+  import * as LeaderboardDB from '@/lib/db.ts'
 
   export default Vue.extend({
     data() {
       return {
         wantClosed: true,
         rawData: '',
+        leaderboards: [] as LeaderboardDB.ShortDesc[],
       }
     },
     computed: {
@@ -49,6 +66,11 @@
         } catch(e) {
           return null
         }
+      },
+      owner(): string {
+        if (!this.isDataValid || this.data === null) return ""
+        const id = this.data.owner_id
+        return this.data?.members[id]?.name || `anon#${id}`
       },
       stars(): Stars[] {
         const stars: Stars[] = []
@@ -90,6 +112,15 @@
       },
     },
     methods: {
+      makeAocLink(ownerId: number, event: string): string {
+        return `https://adventofcode.com/${event}/leaderboard/private/view/${ownerId}`
+      },
+      makeJsonLink(ownerId: number, event: string): string {
+        return this.makeAocLink(ownerId, event) + '.json'
+      },
+      makeBreakableJsonLink(ownerId: number, event: string): string {
+        return this.makeJsonLink(ownerId, event).replace(/\//g, '<wbr>/')
+      },
       getDayStart(day: number): number {
         return Date.UTC(+(this.data?.event || 0), 11, day, 5, 0, 0, 0)/1000
       },
@@ -101,8 +132,27 @@
         return [p1 && p1 - dayStart, p2 && p2 - p1 || null]
       },
       emit() {
-        if (this.isDataValid) {
-          this.$emit('load', this.stars)
+        if (!this.isDataValid || this.data === null) return
+        this.$emit('load', this.stars)
+        this.saveLeaderboard()
+      },
+      async loadLeaderboard(ownerId: number, event: string) {
+        this.rawData = await LeaderboardDB.load(ownerId, event)
+      },
+      async removeLeaderboard(ownerId: number, event: string) {
+        await LeaderboardDB.remove(ownerId, event)
+        await this.reloadLeaderboard()
+      },
+      async saveLeaderboard() {
+        if (!this.isDataValid || this.data === null) return
+        await LeaderboardDB.save(this.data.owner_id, this.owner, this.data.event, this.rawData)
+        await this.reloadLeaderboard()
+      },
+      async reloadLeaderboard(preload?: boolean) {
+        this.leaderboards = await LeaderboardDB.getAll()
+        if (preload && this.leaderboards.length > 0) {
+          const selected = this.leaderboards[0]
+          this.loadLeaderboard(selected.ownerId, selected.event)
         }
       },
     },
@@ -111,14 +161,37 @@
         this.emit()
       },
     },
-    mounted() {
+    created() {
       this.emit()
+      this.reloadLeaderboard(true)
     },
   })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .data-status {
     cursor: pointer;
+  }
+
+  svg {
+    width: 0.55em;
+    vertical-align: super;
+  }
+
+  .muted {
+    opacity: 0.5;
+  }
+
+  .saved {
+    line-height: 2em;
+  }
+
+  .links {
+    display: inline-block;
+
+    & > * {
+      margin-left: 1em;
+      white-space: nowrap;
+    }
   }
 </style>
