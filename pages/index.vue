@@ -11,7 +11,8 @@
     <h1>--- TODO ---</h1>
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
-      <li> Enable sharing data (can an entire lederboard json fit into url?).</li>
+      <li> Implement google analytics.</li>
+      <li> Notify user of what is happening with toast messages.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.

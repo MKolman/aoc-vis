@@ -10,6 +10,9 @@
         </span>
         <a :href="makeAocLink(lb.ownerId, lb.event)">[AoC<ExternalIcon />]</a>
         <a :href="makeJsonLink(lb.ownerId, lb.event)">[JSON<ExternalIcon />]</a>
+        <span class="a" @click="shareLeaderboard(lb.ownerId, lb.event)">
+          [Share]
+        </span>
       </span>
     </div>
   </div>
@@ -19,6 +22,8 @@
   import Vue from 'vue'
   // @ts-ignore
   import * as LeaderboardDB from '@/lib/db.ts'
+  // @ts-ignore
+  import compress from '@/lib/compress.ts'
 
   export default Vue.extend({
     props: {
@@ -53,8 +58,12 @@
         this.saveLeaderboard()
       },
     },
-    created() {
-      if (process.client) this.reloadLeaderboard(true)
+    async created() {
+      if (process.client) {
+        if (!(await this.loadFromUrl())) {
+          this.reloadLeaderboard(true)
+        }
+      }
     },
     methods: {
       makeAocLink(ownerId: number, event: string): string {
@@ -62,6 +71,52 @@
       },
       makeJsonLink(ownerId: number, event: string): string {
         return this.makeAocLink(ownerId, event) + '.json'
+      },
+      async shareLeaderboard(ownerId: number, event: string) {
+        const rawData = await LeaderboardDB.load(ownerId, event)
+          const data: Leaderboard = JSON.parse(rawData)
+          const compressed = compress.compress(data)
+          const url = new URL(window.location.href)
+          url.searchParams.set('l', encodeURIComponent(compressed))
+          if (navigator.share) {
+            const owner = data.members[ownerId].name || `anon#{ownerId}`
+            navigator.share({
+              title: 'AoC Visualisation',
+              text: `${owner}'s leaderboard visualized.`,
+              url: url.toString(),
+            })
+          } else {
+              navigator.clipboard.writeText(url.toString());
+          }
+      },
+      async loadFromUrl(): Promise<boolean> {
+        let value = this.$route.query.l
+        if (!value || value.length === 0) return false
+        if (Array.isArray(value)) {
+          if (!value[0]) return false
+          value = value[0]
+        }
+        try {
+          const data = compress.decompress(decodeURIComponent(value))
+          this.$emit('input', JSON.stringify(data))
+          return await this.verifyAndSave(data)
+        } catch (e) {
+          console.log(e)
+          return false
+        }
+      },
+      async verifyAndSave(data: Leaderboard) {
+        if (data.event && data.owner_id && data.members && data.members[data.owner_id]) {
+          await LeaderboardDB.save(
+            data.owner_id,
+            data.members[data.owner_id].name || `anon#${data.owner_id}`,
+            data.event,
+            JSON.stringify(data),
+          )
+          this.reloadLeaderboard()
+          return true
+        }
+        return false
       },
       async loadLeaderboard(ownerId: number, event: string) {
         const rawData = await LeaderboardDB.load(ownerId, event)

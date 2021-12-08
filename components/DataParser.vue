@@ -28,8 +28,8 @@
         <span class="a">[API]</span> then <span class="a">[JSON]</span> links on
         <a href="https://adventofcode.com/2021/leaderboard/private">your leaderboard page</a>
         on Advent of Code. The final link will look similar to:
-        <a href="https://adventofcode.com/271869/leaderboard/private/view/2021.json">
-          https://adventofcode.com<wbr>/271869<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/2021.json
+        <a href="https://adventofcode.com/2021/leaderboard/private/view/271869.json">
+          https://adventofcode.com<wbr>/2021<wbr>/leaderboard<wbr>/private<wbr>/view<wbr>/271869.json
         </a>
       </div>
       <br>
@@ -97,7 +97,7 @@
         return Object.keys(this.data?.members || {}).length
       },
       isDataValid(): boolean {
-        return !!this.data && !!this.data.members[this.data.owner_id]
+        return !!this.data?.members && !!this.data.members[this.data.owner_id]
       },
       showSection(): boolean {
         return !this.wantClosed || !this.isDataValid
