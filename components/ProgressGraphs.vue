@@ -11,7 +11,12 @@
 
   type sData = {avg: [number, number][], [id: string]: [number, number][]}
   export default Vue.extend({
-    props: ["data"],
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+    },
     data() {
       return {
         chartTemplate: {

@@ -10,7 +10,12 @@
   import Vue from 'vue'
 
   export default Vue.extend({
-    props: ["data"],
+    props: {
+      data: {
+        type: Array,
+        default: null,
+      },
+    },
     data() {
       return {
         barTemplate: {
