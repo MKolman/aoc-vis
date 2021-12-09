@@ -104,6 +104,8 @@
           if (!value[0]) return false
           value = value[0]
         }
+        const {l: _, ...query} = this.$route.query
+        this.$router.replace({path: this.$route.path, query})
         try {
           const data = compress.decompress(decodeURIComponent(value))
           this.$emit('input', JSON.stringify(data))

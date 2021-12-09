@@ -12,5 +12,10 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "varsIgnorePattern": "^_",
+      "argsIgnorePattern": "^_"
+    }],
+  }
 }
