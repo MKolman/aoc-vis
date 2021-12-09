@@ -13,7 +13,6 @@
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
       <li> Implement google analytics.</li>
       <li> Notify user of what is happening with toast messages.</li>
-      <li> Add another progress graph but per user instead of per day.</li>
       <li> Solve the issue with first load of JSON data where it doesn't save it or show history.</li>
     </ul>
     <footer>
