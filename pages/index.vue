@@ -12,7 +12,6 @@
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
       <li> Implement google analytics.</li>
-      <li> Notify user of what is happening with toast messages.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
@@ -69,5 +68,31 @@
   #wrapper {
     max-width: 900px;
     margin: auto;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    padding: 0.5em;
+    margin: 0.5em;
+    opacity: 0;
+    border: 1px solid #ccc;
+    animation: toast var(--ani-time, 2000ms) linear;
+  }
+
+  @keyframes toast {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 100%);
+    }
+
+    5%,80% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    100% { opacity: 0 }
   }
 </style>

@@ -24,6 +24,8 @@
   import * as LeaderboardDB from '@/lib/db.ts'
   // @ts-ignore
   import compress from '@/lib/compress.ts'
+  // @ts-ignore
+  import { createToast } from '@/lib/toast.ts'
 
   export default Vue.extend({
     props: {
@@ -94,7 +96,8 @@
               url: url.toString(),
             })
           } else {
-              navigator.clipboard.writeText(url.toString());
+            createToast('Copied to clipboard!')
+            navigator.clipboard.writeText(url.toString())
           }
       },
       async loadFromUrl(): Promise<boolean> {
@@ -109,9 +112,12 @@
         try {
           const data = compress.decompress(decodeURIComponent(value))
           this.$emit('input', JSON.stringify(data))
-          return await this.verifyAndSave(data)
+          const success = await this.verifyAndSave(data)
+          if (success) createToast('Loaded from URL')
+          return success
         } catch (e) {
           console.log(e)
+          createToast('Error loading linked leaderboard')
           return false
         }
       },
@@ -131,9 +137,11 @@
       async loadLeaderboard(ownerId: number, event: string) {
         const rawData = await LeaderboardDB.load(ownerId, event)
         this.$emit('input', rawData)
+        createToast('Loaded from DB')
       },
       async removeLeaderboard(ownerId: number, event: string) {
         await LeaderboardDB.remove(ownerId, event)
+        createToast('Removed leaderboard')
         await this.reloadLeaderboard()
       },
       async saveLeaderboard() {
