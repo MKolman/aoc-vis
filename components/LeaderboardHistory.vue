@@ -54,16 +54,24 @@
       }
     },
     watch: {
+      owner() {
+        this.saveLeaderboard()
+      },
+      ownerId() {
+        this.saveLeaderboard()
+      },
+      event() {
+        this.saveLeaderboard()
+      },
       value() {
         this.saveLeaderboard()
       },
     },
     async created() {
-      if (process.client) {
-        if (!(await this.loadFromUrl())) {
-          this.reloadLeaderboard(true)
-        }
-      }
+      if (!process.client) return;
+      if ((await this.loadFromUrl())) return;
+      if (this.value?.length) this.verifyAndSave(JSON.parse(this.value))
+      else this.reloadLeaderboard(true)
     },
     methods: {
       makeAocLink(ownerId: number, event: string): string {
@@ -127,7 +135,9 @@
         await this.reloadLeaderboard()
       },
       async saveLeaderboard() {
-        if (!this.value || !this.ownerId || !this.owner || !this.event) return
+        if (!this.value || !this.ownerId || !this.owner || !this.event) {
+          return
+        }
         await LeaderboardDB.save(this.ownerId, this.owner, this.event, this.value)
         await this.reloadLeaderboard()
       },
