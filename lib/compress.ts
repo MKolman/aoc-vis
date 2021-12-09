@@ -1,3 +1,5 @@
+import { Leaderboard, Member, DayStars } from '@/types/config'
+
 function numberToBase64(n: number): string {
   n = +n
   let b = ''
@@ -44,14 +46,14 @@ function compressMember(m: Member): string {
 }
 
 function decompressMember(s: string): Member {
-  const [id, name, stars, local_score, global_score, last_star_ts, ...days] = s.split('.')
+  const [id, name, stars, localScore, globalScore, lastStarTs, ...days] = s.split('.')
   const m: Member = {
     id: parseInt(id),
     name,
     stars: parseInt(stars),
-    local_score: parseInt(local_score),
-    global_score: parseInt(global_score),
-    last_star_ts: parseInt(last_star_ts),
+    local_score: parseInt(localScore),
+    global_score: parseInt(globalScore),
+    last_star_ts: parseInt(lastStarTs),
     completion_day_level: {},
   }
   for (const [day, stars] of days.map(decompressDay)) {

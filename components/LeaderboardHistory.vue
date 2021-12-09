@@ -20,12 +20,10 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  // @ts-ignore
-  import * as LeaderboardDB from '@/lib/db.ts'
-  // @ts-ignore
-  import compress from '@/lib/compress.ts'
-  // @ts-ignore
-  import { createToast } from '@/lib/toast.ts'
+  import * as LeaderboardDB from '@/lib/db'
+  import compress from '@/lib/compress'
+  import { Leaderboard } from '@/types/config'
+  import { createToast } from '@/lib/toast'
 
   export default Vue.extend({
     props: {
@@ -148,7 +146,7 @@
         if (!this.value || !this.ownerId || !this.owner || !this.event) {
           return
         }
-        await LeaderboardDB.save(this.ownerId, this.owner, this.event, this.value)
+        await LeaderboardDB.save(+this.ownerId, this.owner, this.event, this.value)
         await this.reloadLeaderboard()
       },
       async reloadLeaderboard(preload?: boolean) {

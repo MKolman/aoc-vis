@@ -1,7 +1,10 @@
-type Leaderboard = {
-  event: string,
-  owner_id: number,
-  members: {[id: string]: Member},
+type DayStars = {
+  1: {get_star_ts: number},
+  2?: {get_star_ts: number},
+}
+
+type EventStars = {
+  [day: string]: DayStars,
 }
 
 type Member = {
@@ -14,11 +17,11 @@ type Member = {
   completion_day_level: EventStars,
 }
 
-type EventStars = {
-  [day: string]: DayStars,
+
+type Leaderboard = {
+  event: string,
+  owner_id: number,
+  members: {[id: string]: Member},
 }
 
-type DayStars = {
-  1: {get_star_ts: number},
-  2?: {get_star_ts: number},
-}
+export { Leaderboard, Member, EventStars, DayStars }

@@ -8,6 +8,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import { Stars } from '@/types/stars'
 
   export default Vue.extend({
     props: {

@@ -42,6 +42,8 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import { Leaderboard, DayStars } from '@/types/config'
+  import { Stars } from '@/types/stars'
 
   export default Vue.extend({
     data() {

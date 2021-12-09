@@ -22,7 +22,6 @@ async function openLeaderboardDB(): Promise<IDBPDatabase<DB>> {
 }
 
 function upgradeDB(db: IDBPDatabase<DB>, oldVersion: number) {
-  console.log('Upgrade', oldVersion)
   if (oldVersion < 1) {
     db.createObjectStore(STORE_NAME)
   }

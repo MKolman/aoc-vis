@@ -6,3 +6,5 @@ type Stars = {
   stars: number
   score: number
 }
+
+export { Stars }

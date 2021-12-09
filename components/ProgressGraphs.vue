@@ -8,8 +8,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  // @ts-ignore
-  import timeTicks from '@/lib/timeTicks.ts'
+  import timeTicks from '@/lib/timeTicks'
 
   function clone(o: object): object {
     return JSON.parse(JSON.stringify(o))
