@@ -3,7 +3,7 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
   router: {
-    base: '/aoc-vis/',
+    base: '/',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
