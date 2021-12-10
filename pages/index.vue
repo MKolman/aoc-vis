@@ -12,7 +12,6 @@
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
       <li> Implement google analytics.</li>
-      <li> Fix sharing: users with private names become 'null'.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.

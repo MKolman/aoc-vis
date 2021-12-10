@@ -38,7 +38,7 @@ function decompressDay(s: string): [number, DayStars] {
 }
 
 function compressMember(m: Member): string {
-  let result = `${m.id}.${m.name}.${m.stars}.${m.local_score}.${m.global_score}.${m.last_star_ts}`
+  let result = `${m.id}.${m.name || ''}.${m.stars}.${m.local_score}.${m.global_score}.${m.last_star_ts}`
   for (const [day, stars] of Object.entries(m.completion_day_level)) {
     result += `.${compressDay(day, stars)}`
   }
@@ -49,7 +49,7 @@ function decompressMember(s: string): Member {
   const [id, name, stars, localScore, globalScore, lastStarTs, ...days] = s.split('.')
   const m: Member = {
     id: parseInt(id),
-    name,
+    name: name.length?name:null,
     stars: parseInt(stars),
     local_score: parseInt(localScore),
     global_score: parseInt(globalScore),
