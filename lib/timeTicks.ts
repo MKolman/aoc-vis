@@ -26,4 +26,18 @@ export default {
     if (!transform) return result
     return result.map(transform)
   },
+  durationFormat(val: number): string {
+    const zp = (num: number) => String(num).padStart(2, '0')
+    val = +val  
+    const sec = zp(val % 60)
+    val = (val / 60) | 0
+    const min = zp(val % 60)
+    val = (val / 60) | 0
+    const hrs = zp(val % 24)
+    val = (val / 24) | 0
+    const day = val
+    let result = `${hrs}:${min}:${sec}`
+    if (day > 0) result = `${day}d ${result}`
+    return result
+  },
 } 

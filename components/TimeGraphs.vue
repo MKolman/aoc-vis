@@ -26,6 +26,7 @@
       return {
         chartTemplate: {
           title: { text: 'Time to solve part 1 from problem open' },
+          tooltip: {/* fill in formatter later */},
           yAxis: {
             title: { text: 'Time to solve' },
             type: 'logarithmic',
@@ -88,6 +89,10 @@
         const allData = ([] as number[]).concat(...series.map(v => v.data)).filter(Boolean)
         result.yAxis.tickPositions = timeTicks.get(allData, Math.log10)
         result.yAxis.labels.formatter = function(){return timeTicks.format(this.value)}
+        result.tooltip.formatter = function() {
+          return `Day ${this.x}<br><span style="color:${this.point.color}">\u25CF</span>
+                  ${this.series.name}: ${timeTicks.durationFormat(this.y)}`
+        }
         return result
       },
     },

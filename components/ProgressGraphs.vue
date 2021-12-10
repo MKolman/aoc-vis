@@ -26,6 +26,7 @@
       return {
         chartTemplate: {
           title: { text: 'Total progression of stars per day' },
+          tooltip: {/* add formatter */},
           xAxis: {
             title: { text: 'Time since problem open' },
             type: 'logarithmic',
@@ -120,6 +121,11 @@
         if (Object.keys(stars).length < 2) return result
         result.xAxis.tickPositions = timeTicks.get(stars.avg.map(v => v[0]), Math.log10)
         result.xAxis.labels.formatter = function(){return timeTicks.format(this.value)}
+        result.tooltip.formatter = function() {
+          return `${timeTicks.durationFormat(this.x)}<br>
+                  <span style="color:${this.point.color}">\u25CF</span>
+                  ${this.series.name}: ${Math.round(this.y)}★`
+        }
 
         result.series = [{
           name: 'Average',
