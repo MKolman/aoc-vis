@@ -8,11 +8,16 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'AoC Leaderboard Visualizer',
+    title: 'Leaderboard Visualizer for Advent of Code',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Leaderboard Visualizer for Advent of Code is a collection of charts that display'
+                 + 'some interesting values about your Advent of code leaderboards.'
+      },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -54,12 +59,12 @@ export default {
   pwa: {
     manifest: {
       lang: 'en',
-      name: 'AoC Leaderboard Visualiser',
-      short_name: 'AoC Vis',
+      name: 'Leaderboard Visualiser for Advent of Code',
+      short_name: 'AoC Visualiser',
       background_color: '#0f0f23',
     },
     meta: {
-      title: 'AoC Visualiser',
+      title: 'Leaderboard Visualiser for Advent of Code',
       theme_color: '#009900',
     },
   },
