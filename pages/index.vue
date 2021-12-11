@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <h1>--- Leaderboard Visualizer ---</h1>
+    <h1>--- Leaderboard Visualizer for Advent of Code ---</h1>
     <DataParser @load="stars = $event"/>
     <StarGraphs :data="stars"/>
     <br>
