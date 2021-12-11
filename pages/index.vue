@@ -12,6 +12,7 @@
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
       <li> Implement google analytics.</li>
+      <li> Fix service worker and create a valid PWA.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
