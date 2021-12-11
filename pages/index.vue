@@ -11,13 +11,13 @@
     <h1>--- TODO ---</h1>
     <ul>
       <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
-      <li> Implement google analytics.</li>
       <li> Fix service worker and create a valid PWA.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
       Hosted on <a href="https://github.com/mkolman/aoc-vis">GitHub</a>.
     </footer>
+    <client-only> <CookieChecker/> </client-only>
   </div>
 </template>
 
@@ -48,7 +48,14 @@
     height: 10em;
   }
 
-  a, .a {
+  button {
+    background: none;
+    border: none;
+    font: inherit;
+    padding: 0;
+  }
+
+  a, .a, button {
     outline: 0;
     text-decoration: none;
     color: #090;
@@ -60,6 +67,7 @@
     }
   }
 
+
   h1, h2 {
     font-size: 1em;
     font-weight: normal;
@@ -69,6 +77,10 @@
   #wrapper {
     max-width: 900px;
     margin: auto;
+  }
+
+  .muted {
+    opacity: 0.5;
   }
 
   .toast {
