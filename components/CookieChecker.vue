@@ -23,8 +23,10 @@
   if (process.client) {
     // @ts-ignore
     window.dataLayer = window.dataLayer || [];
-    // @ts-ignore
-    gtag('consent', 'default', {'analytics_storage': 'denied'});
+    if (isEU() && !hasConsent()) {
+      // @ts-ignore
+      gtag('consent', 'default', {'analytics_storage': 'denied'});
+    }
     // @ts-ignore
     gtag('js', new Date());
     // @ts-ignore
