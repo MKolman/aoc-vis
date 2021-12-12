@@ -10,7 +10,7 @@
     <br>
     <h1>--- TODO ---</h1>
     <ul>
-      <li> Add stars scatter plot to first graph to indicate which stars are won.</li>
+      <li> Add about page.</li>
     </ul>
     <footer>
       Made by <a href="https://www.kolman.si">Maks Kolman</a>.
@@ -33,55 +33,6 @@
 </script>
 
 <style lang="scss">
-  body, textarea {
-    background: #0f0f23;
-    color: #ccc;
-    font-family: "Source Code Pro", monospace;
-    font-size: 14pt;
-  }
-
-  textarea {
-    border: 1px solid #333340;
-    background: #10101a;
-    width: 100%;
-    height: 10em;
-  }
-
-  button {
-    background: none;
-    border: none;
-    font: inherit;
-    padding: 0;
-  }
-
-  a, .a, button {
-    outline: 0;
-    text-decoration: none;
-    color: #090;
-    overflow-wrap: break-word;
-    cursor: pointer;
-
-    &:hover, &:focus {
-      color: #9f9;
-    }
-  }
-
-
-  h1, h2 {
-    font-size: 1em;
-    font-weight: normal;
-    color: #fff;
-  }
-
-  #wrapper {
-    max-width: 900px;
-    margin: auto;
-  }
-
-  .muted {
-    opacity: 0.5;
-  }
-
   .toast {
     position: fixed;
     bottom: 0;
