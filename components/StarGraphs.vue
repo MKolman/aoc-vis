@@ -1,6 +1,14 @@
 <template>
   <div>
-    <highchart :options="totalStars" />
+    <input
+      type="range"
+      v-model="scroll"
+      v-if="data.length > pageSize"
+      orient="vertical"
+      min="0"
+      :max="data.length-1-pageSize"
+    />
+    <highchart :options="starsPerUser" />
     <br>
     <highchart :options="starsPerDay" />
   </div>
@@ -9,6 +17,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import { Stars } from '@/types/stars'
+  import timeTicks from '@/lib/timeTicks'
 
   export default Vue.extend({
     props: {
@@ -19,12 +28,16 @@
     },
     data() {
       return {
+        scroll: 0,
+        pageSize: 20,
         barTemplate: {
           title: { text: 'Number of stars won by each person' },
           chart: { type: 'bar' },
           xAxis: {
             categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
             title: { text: null },
+            min: 0,
+            max: 1,
           },
           yAxis: {
             min: 0,
@@ -33,7 +46,19 @@
           },
           plotOptions: { bar: { dataLabels: { enabled: true } } },
           legend: { enabled: false },
-          series: [{ name: "☆", data: [107, 31, 635, 203, 2] }],
+          series: [
+            { name: '★', data: [107, 31, 635, 203, 2] },
+            {
+              name: '★',
+              type: 'scatter',
+              color: '#FFFF00',
+              marker: {
+                symbol: 'url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNXB4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgMCAzMDAgMjc1IiB2ZXJzaW9uPSIxLjEiPjxwb2x5Z29uIGZpbGw9IiNmZGZmMDAiIHN0cm9rZT0iIzYwNWEwMCIgc3Ryb2tlLXdpZHRoPSIxNSIgcG9pbnRzPSIxNTAsMjUgIDE3OSwxMTEgMjY5LDExMSAxOTcsMTY1IDIyMywyNTEgIDE1MCwyMDAgNzcsMjUxICAxMDMsMTY1IDMxLDExMSAxMjEsMTExIi8+PC9zdmc+)',
+              },
+              data: [],
+              tooltip: {/* */},
+            },
+          ],
         },
         columnTemplate: {
           chart: { type: 'column' },
@@ -65,11 +90,42 @@
       }
     },
     computed: {
-      totalStars() {
-        const result = (this as any).barTemplate
-        result.xAxis.categories = (this.data as Stars[]).map(v => v.name)
-        result.series[0].data = (this.data as Stars[]).map(v => v.stars)
+      starsPerUser() {
+        const result = (this as any).starsPerUserCache
+        result.xAxis.min = +this.scroll
+        result.xAxis.max = Math.min((this as any)?.data?.length-1, result.xAxis.min + this.pageSize)
         return result
+      },
+      starsPerUserCache() {
+        const result = (this as any).barTemplate
+        const stars = this.data as Stars[]
+        result.xAxis.categories = stars.map(v => v.name)
+        result.series[0].data = stars.map(v => v.stars)
+        result.series[1].data = []
+
+        result.series[1].data = this.scatterData
+        result.series[1].tooltip.pointFormatter = function() {
+          const day = Math.floor((this.y - 1)/2)
+          const part = +(this.y % 1 > 0.2) + 1
+          const partx = `part${part}` as 'part1' | 'part2'
+          const time = timeTicks.durationFormat(stars[this.x][partx][day] || 0)
+          return `Day ${day+1}/${part}<br>${this.category} - ${time}`
+        }
+        return result
+      },
+      scatterData(): {x: number, y: number}[] {
+        const stars = this.data as Stars[]
+        let scatter: {x: number, y: number}[] = []
+        for (let memId = 0; memId < stars.length; memId++) {
+          const {part1, part2} = stars[memId]
+          for (const {dat, shift} of [{dat: part1, shift: 1}, {dat: part2, shift: 1.5}]) {
+            scatter = scatter.concat(
+              dat.map((v, day) => ({x: memId, y: v ? 2*day+shift : 0}))
+                 .filter(v => (v.y > 0))
+            )
+          }
+        }
+        return scatter
       },
       starsPerDay() {
         const result = (this as any).columnTemplate
@@ -88,3 +144,14 @@
     },
   })
 </script>
+
+<style>
+input[type=range][orient=vertical] {
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 1em;
+    float: right;
+    height: 400px;
+    transform: rotate(180deg);
+}
+</style>
