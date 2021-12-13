@@ -92,8 +92,10 @@
     computed: {
       starsPerUser() {
         const result = (this as any).starsPerUserCache
-        result.xAxis.min = +this.scroll
-        result.xAxis.max = Math.min((this as any)?.data?.length-1, result.xAxis.min + this.pageSize)
+        const numRows: number = (this as any)?.data?.length-1
+        const pSize = this.pageSize as number
+        result.xAxis.min = Math.max(0, Math.min(+this.scroll, numRows - pSize))
+        result.xAxis.max = Math.min(numRows, result.xAxis.min + pSize)
         return result
       },
       starsPerUserCache() {
