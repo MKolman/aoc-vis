@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div
+    :class="{drag: draggingFile}"
+    @drop="drop"
+    @dragenter.prevent
+    @dragover.prevent="draggingFile=true"
+    @dragleave="draggingFile=false"
+  >
     <h2 class="data-status" @click="wantClosed = !wantClosed">
       <span v-if="isDataValid">
         {{owner}}'s leaderboard for {{data.event}}
@@ -33,6 +39,13 @@
         </a>
       </div>
       <br>
+      Insert the data directy below, or
+      <button @click="fromClipboard()">[paste from clipboard]</button>,
+      or
+      <label class="a">
+        <input ref="jsonUpload" type="file" hidden accept=".txt,.json" @change="fromFile"/>
+        [upload a file].
+      </label>
       <textarea v-model="rawData" placeholder="Paste JSON text here."></textarea>
       <br>
       <br>
@@ -44,12 +57,14 @@
   import Vue from 'vue'
   import { Leaderboard, DayStars } from '@/types/config'
   import { Stars } from '@/types/stars'
+  import { createToast } from '@/lib/toast'
 
   export default Vue.extend({
     data() {
       return {
         wantClosed: true,
         noSavedLeaderboards: true,
+        draggingFile: false,
         rawData: '',
       }
     },
@@ -128,6 +143,38 @@
         if (!this.isDataValid || this.data === null) return
         this.$emit('load', this.stars)
       },
+      async fromClipboard() {
+        this.rawData = await navigator.clipboard.readText()
+        createToast('Loaded from clipboard!')
+      },
+      drop(e: DragEvent) {
+        this.draggingFile = false
+        e.preventDefault()
+        this.loadFile(e?.dataTransfer?.files?.[0])
+      },
+      fromFile(e: Event) {
+        this.loadFile((e.target as HTMLInputElement)?.files?.[0])
+      },
+      loadFile(file?: File) {
+        if (!file) {
+          createToast('Error loading from file')
+          return
+        }
+        const reader = new FileReader();
+        reader.onload = (res) => {
+          if (res?.target?.result) {
+            this.rawData = res.target.result as string;
+            createToast('Loaded from file!')
+          } else {
+            createToast('Error loading from file')
+          }
+        }
+        reader.onerror = (err) => {
+          console.log(err)
+          createToast('Error loading from file')
+        }
+        reader.readAsText(file);
+      }
     },
   })
 </script>
@@ -135,5 +182,10 @@
 <style lang="scss" scoped>
   .data-status {
     cursor: pointer;
+  }
+
+  .drag {
+    outline: 1em solid rgba(0, 153, 0, 0.5);
+    outline-offset: -1em;
   }
 </style>

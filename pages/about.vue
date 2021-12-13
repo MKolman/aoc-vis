@@ -21,7 +21,6 @@
     <h1>TODO</h1>
     <ul>
       <li> Add lazy loading for components.</li>
-      <li> Support json file upload and drag &amp; drop.</li>
     </ul>
   </div>
 </template>
