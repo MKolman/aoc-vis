@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <h1>--- Leaderboard Visualizer for Advent of Code ---</h1>
+    <h1>Leaderboard Visualiser for Advent of Code</h1>
     <DataParser @load="stars = $event"/>
     <StarGraphs :data="stars"/>
     <br>
@@ -8,15 +8,6 @@
     <br>
     <ProgressGraphs :data="stars"/>
     <br>
-    <h1>--- TODO ---</h1>
-    <ul>
-      <li> Add about page.</li>
-    </ul>
-    <footer>
-      Made by <a href="https://www.kolman.si">Maks Kolman</a>.
-      Hosted on <a href="https://github.com/mkolman/aoc-vis">GitHub</a>.
-    </footer>
-    <client-only> <CookieChecker/> </client-only>
   </div>
 </template>
 

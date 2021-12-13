@@ -36,6 +36,17 @@ h1, h2 {
     font-size: 1em;
     font-weight: normal;
     color: #fff;
+
+}
+
+h1::after {
+    content: '---';
+    margin-left: 0.5em;
+}
+
+h1::before {
+    content: '---';
+    margin-right: 0.5em;
 }
 
 #wrapper {
