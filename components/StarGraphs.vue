@@ -1,9 +1,9 @@
 <template>
   <div>
     <input
-      type="range"
-      v-model="scroll"
       v-if="data.length > pageSize"
+      v-model="scroll"
+      type="range"
       orient="vertical"
       min="0"
       :max="data.length-1-pageSize"

@@ -1,15 +1,15 @@
 <template>
 <div>
   <div v-if="showForm" id="cookie">
-    <button @click="toggleForm" class="muted">[X]</button>
+    <button class="muted" @click="toggleForm">[X]</button>
     Allow cookies for Google analytics
     <span class="btns">
       <button @click="giveConsent">[Allow]</button>
-      <button @click="removeConsent" class="muted">[No]</button>
+      <button class="muted" @click="removeConsent">[No]</button>
     </span>
   </div>
   <div v-if="!showForm && inEU" id="smallCookie">
-    <button @click="toggleForm" title="Cookies" class="muted">[C]</button>
+    <button title="Cookies" class="muted" @click="toggleForm">[C]</button>
   </div>
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42885055-7"></script>
 </div>
