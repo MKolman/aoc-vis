@@ -11,8 +11,8 @@
       <span v-else>
         No leaderboard data. Paste it below.
       </span>
-      <span v-if="showSection" class="a">V</span>
-      <span v-else class="a">&gt;</span>
+      <button v-if="showSection">V</button>
+      <button v-else>&gt;</button>
     </h2>
     <div v-if="showSection">
       <LeaderboardHistory

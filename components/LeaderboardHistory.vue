@@ -2,17 +2,17 @@
   <div>
     Paste a new leaderboard JSON to the textbox below or load one of your saved leaderboards:
     <div v-for="lb in leaderboards" :key="`${lb.ownerId}/${lb.event}`" class="saved">
-      <span class="a muted" @click="removeLeaderboard(lb.ownerId, lb.event)">[X]</span>
+      <button class="muted" @click="removeLeaderboard(lb.ownerId, lb.event)">[X]</button>
       {{lb.owner}} ({{lb.event}}):
       <span class="links">
-        <span class="a" @click="loadLeaderboard(lb.ownerId, lb.event)">
+        <button @click="loadLeaderboard(lb.ownerId, lb.event)">
           [Load]
-        </span>
+        </button>
         <a :href="makeAocLink(lb.ownerId, lb.event)">[AoC<ExternalIcon />]</a>
         <a :href="makeJsonLink(lb.ownerId, lb.event)">[JSON<ExternalIcon />]</a>
-        <span class="a" @click="shareLeaderboard(lb.ownerId, lb.event)">
+        <button @click="shareLeaderboard(lb.ownerId, lb.event)">
           [Share]
-        </span>
+        </button>
       </span>
     </div>
   </div>
@@ -89,8 +89,8 @@
           if (navigator.share) {
             const owner = data.members[ownerId].name || `anon#{ownerId}`
             navigator.share({
-              title: 'AoC Visualisation',
-              text: `${owner}'s leaderboard visualized.`,
+              title: 'Leaderboard Visualisation for Advent of Code',
+              text: `${owner}'s leaderboard visualised.`,
               url: url.toString(),
             })
           } else {
