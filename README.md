@@ -1,13 +1,18 @@
 # Advent of code leaderboard visualizer
 
-This directory contains a nextjs website to view statistics of a advent of code leaderboard.
+Can be accessed on [aoc.kolman.si](https://aoc.kolman.si)
 
-## Graphs wishlist
-- [ ] Number of stars per user (horizontal bar chart)
-- [ ] Time to complete part 1 from problem start per user.
-- [ ] Time to complete part 2 from completing part 1.
-- [ ] Total number of part 1 solved in the leaderboard from problem open per day
-- [ ] Total number of part 2 solved in the leaderboard from problem 1 solved per day
+![stars per member](https://aoc.kolman.si/demo/stars_per_member.png)
+
+![stars per day](https://aoc.kolman.si/demo/stars_per_day.png)
+
+![time to easy](https://aoc.kolman.si/demo/time_to_easy.png)
+
+![time to hard](https://aoc.kolman.si/demo/time_to_hard.png)
+
+![progress per day](https://aoc.kolman.si/demo/progress_per_day.png)
+
+![progress per member](https://aoc.kolman.si/demo/progress_per_member.png)
 
 ## Build Setup
 

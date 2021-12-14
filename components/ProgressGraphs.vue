@@ -1,8 +1,8 @@
 <template>
   <div>
-    <highchart :options="dayData" />
+    <highchart :options="dayData" :modules="['exporting']"/>
     <br>
-    <highchart :options="userData" />
+    <highchart :options="userData" :modules="['exporting']"/>
   </div>
 </template>
 

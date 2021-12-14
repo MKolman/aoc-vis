@@ -1,8 +1,8 @@
 <template>
   <div>
-    <highchart :options="partOne" />
+    <highchart :options="partOne" :modules="['exporting']"/>
     <br>
-    <highchart :options="partTwo" />
+    <highchart :options="partTwo" :modules="['exporting']"/>
   </div>
 </template>
 

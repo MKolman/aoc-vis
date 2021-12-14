@@ -21,6 +21,7 @@
     <p>
       This is a frontend-only app written in <a href="https://nuxtjs.org/">Nuxt</a>.
       It uses your browser's Indexed Database to store any data it persists over refreshes.
+      For charting the site uses <a href="https://www.highcharts.com/">highcharts</a>.
     </p>
     <p>
       The code for this project is hosted on

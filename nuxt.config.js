@@ -53,7 +53,7 @@ export default {
   ],
 
   highcharts: {
-      setOptions: highchartTheme,
+    setOptions: highchartTheme,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

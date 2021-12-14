@@ -8,9 +8,9 @@
       min="0"
       :max="data.length-1-pageSize"
     />
-    <highchart :options="starsPerUser" />
+    <highchart :options="starsPerUser" :modules="['exporting']"/>
     <br>
-    <highchart :options="starsPerDay" />
+    <highchart :options="starsPerDay" :modules="['exporting']"/>
   </div>
 </template>
 
@@ -31,7 +31,7 @@
         scroll: 0,
         pageSize: 20,
         barTemplate: {
-          title: { text: 'Number of stars won by each person' },
+          title: { text: 'Number of stars won per member' },
           chart: { type: 'bar' },
           xAxis: {
             categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
@@ -53,7 +53,7 @@
               type: 'scatter',
               color: '#FFFF00',
               marker: {
-                symbol: 'url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNXB4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgMCAzMDAgMjc1IiB2ZXJzaW9uPSIxLjEiPjxwb2x5Z29uIGZpbGw9IiNmZGZmMDAiIHN0cm9rZT0iIzYwNWEwMCIgc3Ryb2tlLXdpZHRoPSIxNSIgcG9pbnRzPSIxNTAsMjUgIDE3OSwxMTEgMjY5LDExMSAxOTcsMTY1IDIyMywyNTEgIDE1MCwyMDAgNzcsMjUxICAxMDMsMTY1IDMxLDExMSAxMjEsMTExIi8+PC9zdmc+)',
+                symbol: 'url(/star.svg)',
               },
               data: [],
               tooltip: {/* */},
