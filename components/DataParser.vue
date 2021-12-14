@@ -20,7 +20,7 @@
       <button v-if="showSection">V</button>
       <button v-else>&gt;</button>
     </h2>
-    <div v-if="showSection">
+    <div :style="{display: showSection?'block':'none'}">
       <LeaderboardHistory
         v-model="rawData"
         :style="{ display: noSavedLeaderboards?'none':'block'}"
