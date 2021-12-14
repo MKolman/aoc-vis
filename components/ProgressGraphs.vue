@@ -86,7 +86,7 @@
         }
         const avgStars = ([] as number[]).concat(...Object.values(allStars))
         avgStars.sort((a, b) => a-b)
-        result.avg = avgStars.map((v, i) => [v, i/days])
+        result.avg = avgStars.map((v, i) => [v, (i+1)/days])
         return result as any
       },
       userStars(): sData {
@@ -98,10 +98,10 @@
           ).filter(Boolean)
           values.sort((a, b) => a-b)
           avgStars = avgStars.concat(values)
-          result[name] = values.map((v, i) => [v, i])
+          result[name] = values.map((v, i) => [v, i+1])
         }
         avgStars.sort((a, b) => a-b)
-        result.avg = avgStars.map((v, i) => [v, i/this.data.length])
+        result.avg = avgStars.map((v, i) => [v, (i+1)/this.data.length])
         return result as any
       },
       dayData() {
