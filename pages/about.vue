@@ -1,6 +1,5 @@
 <template>
-  <div id="wrapper">
-  
+  <div>
     <NuxtLink to="/">&lt;-- Back to Home Page</NuxtLink>.
     <h1>About Leaderboard Visualiser for Advent of Code</h1>
     <p>
@@ -18,9 +17,23 @@
       was interesting enough to plot some graphs on how exactly the solving times
       differ between members of the same leaderboard.
     </p>
+    <h2> Technical information </h2>
+    <p>
+      This is a frontend-only app written in <a href="https://nuxtjs.org/">Nuxt</a>.
+      It uses your browser's Indexed Database to store any data it persists over refreshes.
+    </p>
+    <p>
+      The code for this project is hosted on
+      <a href="https://github.com/MKolman/aoc-vis">github.com/MKolman/aoc-vis</a>. All the
+      generated static files are hosted on the
+      <a href="https://github.com/MKolman/aoc-vis/tree/gh-pages">branch gh-pages</a> and served
+      using Github Pages.
+    </p>
     <h1>TODO</h1>
     <ul>
       <li> Add lazy loading for components.</li>
+      <li> Leaderboard is only saved to DB if you open DataParser after it loads.</li>
+      <li> Provide sample data so first time user can load it.</li>
     </ul>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <div>
     <h1>Leaderboard Visualiser for Advent of Code</h1>
     <DataParser @load="stars = $event"/>
     <StarGraphs :data="stars"/>
