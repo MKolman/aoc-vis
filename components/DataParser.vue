@@ -39,13 +39,13 @@
         </a>
       </div>
       <br>
-      Insert the data directy below, or
-      <button @click="fromClipboard()">[paste from clipboard]</button>,
-      or
+      Insert the data
+      <button @click="fromClipboard()">[from clipboard]</button>,
       <label class="a">
         <input ref="jsonUpload" type="file" hidden accept=".txt,.json" @change="fromFile"/>
-        [upload a file].
-      </label>
+        [from file]</label
+      >,
+      or <button :class="{highlight: !isDataValid}" @click="loadSample">[load a sample]</button>.
       <textarea v-model="rawData" placeholder="Paste JSON text here."></textarea>
       <br>
       <br>
@@ -174,7 +174,11 @@
           createToast('Error loading from file')
         }
         reader.readAsText(file);
-      }
+      },
+      async loadSample() {
+        const response = await fetch('/sample.json')
+        this.rawData = await response.text()
+      },
     },
   })
 </script>

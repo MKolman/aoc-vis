@@ -29,6 +29,16 @@ a, .a, button {
     &:hover, &:focus {
       color: #9f9;
     }
+
+    &.highlight {
+        color: #0C0;
+        text-shadow: 0 0 2px #0C0, 0 0 5px #0C0;
+
+        &:hover, &:focus {
+            color: #9f9;
+            text-shadow: 0 0 2px #9f9, 0 0 5px #9f9;
+        }
+    }
 }
 
 

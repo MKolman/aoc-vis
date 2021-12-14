@@ -32,7 +32,6 @@
     <h1>TODO</h1>
     <ul>
       <li> Add lazy loading for components.</li>
-      <li> Provide sample data so first time user can load it.</li>
     </ul>
   </div>
 </template>
