@@ -30,9 +30,12 @@
       <a href="https://github.com/MKolman/aoc-vis/tree/gh-pages">branch gh-pages</a> and served
       using Github Pages.
     </p>
+    <p>
+      If you enjoy programming challenges and puzzles, I invite you to check out my
+      <a href="https://www.kolman.si/blog/aes_game/">encryption based puzzles on my blog</a>.
     <h1>TODO</h1>
     <ul>
-      <li> Add lazy loading for components.</li>
+      <li> Add lazy loading for graph components.</li>
     </ul>
   </div>
 </template>

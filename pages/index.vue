@@ -14,6 +14,11 @@
 <script lang="ts">
   import Vue from 'vue'
 
+  console.log(
+    '%cFor more programming challenges visit\nhttps://www.kolman.si/blog/aes_game/',
+    'font-size:x-large;background:#0f0f23;color:#090'
+  )
+
   export default Vue.extend({
     data() {
       return {
