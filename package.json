@@ -41,7 +41,7 @@
     "lint-staged": "^12.1.4",
     "prettier": "^2.5.1",
     "push-dir": "^0.4.1",
-    "sass": "^1.44.0",
+    "sass": "^1.45.1",
     "sass-loader": "^10.2.0",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^9.0.3",
