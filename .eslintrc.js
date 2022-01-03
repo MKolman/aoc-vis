@@ -17,5 +17,9 @@ module.exports = {
       "varsIgnorePattern": "^_",
       "argsIgnorePattern": "^_"
     }],
+    
+    "vue/multi-word-component-names": ["error", {
+      "ignores": ["default", "index", "about"],
+    }],
   }
 }
