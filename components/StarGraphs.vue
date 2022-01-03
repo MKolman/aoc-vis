@@ -150,6 +150,7 @@
 <style>
 input[type=range][orient=vertical] {
     writing-mode: bt-lr; /* IE */
+    /* stylelint-disable property-no-vendor-prefix */
     -webkit-appearance: slider-vertical; /* WebKit */
     width: 1em;
     float: right;
