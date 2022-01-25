@@ -44,7 +44,7 @@
     "push-dir": "^0.4.1",
     "sass": "^1.49.0",
     "sass-loader": "^10.2.0",
-    "stylelint": "^14.2.0",
+    "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
     "webpack": "^4.46.0"
