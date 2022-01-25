@@ -47,6 +47,6 @@
     "stylelint": "^14.3.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
-    "webpack": "^4.46.0"
+    "webpack": "^5.67.0"
   }
 }
