@@ -22,7 +22,7 @@
     "core-js": "^3.23.4",
     "idb": "^7.0.2",
     "nuxt": "^2.15.7",
-    "nuxt-highcharts": "^2.0.3"
+    "nuxt-highcharts": "^2.0.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",
